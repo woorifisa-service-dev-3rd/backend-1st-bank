@@ -13,6 +13,8 @@ import view.dto.LoginRequest;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -37,9 +39,15 @@ public class BankSimulator {
 
         printAccountDetails(accountList, findNumber);
 
-        // 임의의 날짜
-        Date startDate = Date.valueOf("2024-05-01");
-        Date endDate = Date.valueOf("2024-08-31");
+        LocalDate currentDate = LocalDate.now();
+
+        // 현재 날짜에서 60일 전 날짜를 계산
+        LocalDate startDateLocal = currentDate.minus(60, ChronoUnit.DAYS);
+
+        // SQL Date 타입으로 변환
+        Date startDate = Date.valueOf(startDateLocal);
+        Date endDate = Date.valueOf(currentDate);
+
         List<Record> records = recordDAO.findRecordsByAccountIdAndDateRange(findNumber, startDate, endDate);
 
         recordView.printRecords(records);
