@@ -1,7 +1,6 @@
 package domain;
 
 import java.sql.Date;
-
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,10 +13,9 @@ public class Record {
 	private int target_account_id;
 	private int account_id;
 	private String memo;
-	
+
 	@Builder
 	public Record(int id, String type, Date date, int money, int target_account_id, int account_id, String memo) {
-		super();
 		this.id = id;
 		this.type = type;
 		this.date = date;
