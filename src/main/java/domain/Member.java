@@ -6,13 +6,13 @@ import lombok.Getter;
 @Getter
 public class Member {
 
-    private Long id;
+    private int id;
     private String name;
     private String loginId;
     private String password;
 
     @Builder
-    public Member(Long id, String loginId, String name, String password) {
+    public Member(int id, String loginId, String name, String password) {
         this.id = id;
         this.loginId = loginId;
         this.name = name;

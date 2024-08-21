@@ -1,5 +1,6 @@
 package view;
 
+import view.dto.FindAccount;
 import view.dto.LoginRequest;
 
 import java.util.Scanner;
@@ -16,4 +17,11 @@ public class InputView {
         String password = scanner.nextLine();
         return new LoginRequest(loginId, password);
     }
+    
+    public static FindAccount inputAccount() {
+    	System.out.println("############ 계좌 조회 ############");
+    	System.out.println("조회하고 싶은 계좌를 선택하세요");
+    	int findNumber = scanner.nextInt();
+    	return new FindAccount(findNumber);    
+    	}
 }
