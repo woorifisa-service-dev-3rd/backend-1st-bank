@@ -17,9 +17,9 @@ public class printView {
     	System.out.println();
         for(int i = 0; i < accounts.size(); i++) {
             Account account = accounts.get(i);
-            System.out.println("| " + "계좌 번호 : " + account.getNumber() + " |");
-            System.out.println("| " + "잔액 : " + account.getTotal_money() + " |");
-            System.out.println("| " + "계좌 종류 : " + account.getType() + " |");
+            System.out.printf("| %-10s : %-30s |\n", "계좌 번호", account.getNumber());
+            System.out.printf("| %-10s : %-30d |\n", "잔액", account.getTotal_money());
+            System.out.printf("| %-10s : %-30s |\n", "계좌 종류", account.getType());
             if (i < accounts.size() - 1) {
                 System.out.println("--------------------------------------------------------------");
             }
@@ -41,9 +41,9 @@ public class printView {
             System.out.println("==========================================================");
             Account account = accounts.get(findNumber - 1);
 
-            System.out.println("| " + "계좌 번호 : " + account.getNumber() + " |");
-            System.out.println("| " + "잔액 : " + account.getTotal_money() + " |");
-            System.out.println("| " + "계좌 종류 : " + account.getType() + " |");
+            System.out.printf("| %-10s : %-30s |\n", "계좌 번호", account.getNumber());
+            System.out.printf("| %-10s : %-30d |\n", "잔액", account.getTotal_money());
+            System.out.printf("| %-10s : %-30s |\n", "계좌 종류", account.getType());
             System.out.println("==========================================================");   
     }
     
