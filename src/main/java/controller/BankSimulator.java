@@ -2,42 +2,58 @@ package controller;
 
 import data.MemberDAO;
 import data.AccountDAO;
+import data.RecordDAO;
 import domain.Account;
-
 import domain.Member;
+import domain.Record;
 import view.InputView;
+import view.RecordView;
 import view.dto.FindAccount;
 import view.dto.LoginRequest;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.util.Objects.isNull;
 import static view.printView.printFailToLogin;
 import static view.printView.printAccount;
 import static view.printView.printAccountDetails;
+
 public class BankSimulator {
 
     MemberDAO memberDAO = new MemberDAO();
     AccountDAO accountDAO = new AccountDAO();
+    RecordDAO recordDAO = new RecordDAO();
+    RecordView recordView = new RecordView();
 
     public void run() throws SQLException {
         Member member = login();
         List<Account> accountList = accountDAO.findAllByMemberId(member.getId());
         printAccount(accountList);
-        
+
         FindAccount findAccount = inputAccount();
         int findNumber = findAccount.getFindNumber();
-        
-        printAccountDetails(accountList,findNumber);
-        
-        // int input = 1;
-        // accountList.get(input-1);
 
+        printAccountDetails(accountList, findNumber);
 
+        LocalDate currentDate = LocalDate.now();
+
+        // 현재 날짜에서 60일 전 날짜를 계산
+        LocalDate startDateLocal = currentDate.minus(60, ChronoUnit.DAYS);
+
+        // SQL Date 타입으로 변환
+        Date startDate = Date.valueOf(startDateLocal);
+        Date endDate = Date.valueOf(currentDate);
+
+        List<Record> records = recordDAO.findRecordsByAccountIdAndDateRange(findNumber, startDate, endDate);
+
+        recordView.printRecords(records);
     }
 
-	private Member login() throws SQLException {
+    private Member login() throws SQLException {
         while (true) {
             LoginRequest loginRequest = InputView.inputLogin();
             Member member = memberDAO.findByLoginIdAndPassword(loginRequest.getLoginId(), loginRequest.getPassword());
@@ -46,19 +62,17 @@ public class BankSimulator {
             }
             printFailToLogin();
         }
-        
     }
-	
-	 private FindAccount inputAccount() {
-			// TODO Auto-generated method stub
-		 while (true) {
-			 FindAccount findAccount = InputView.inputAccount();
-			 int findNumber = findAccount.getFindNumber();
-			 
-			 if (findNumber > 0) {
-				 return findAccount;
-			 }
-			 System.out.println("잘못된 계좌 번호 입니다. 다시 시도해주세요.");
-		 }
-	 }    
+
+    private FindAccount inputAccount() {
+        while (true) {
+            FindAccount findAccount = InputView.inputAccount();
+            int findNumber = findAccount.getFindNumber();
+
+            if (findNumber > 0) {
+                return findAccount;
+            }
+            System.out.println("잘못된 계좌 번호입니다. 다시 시도해주세요.");
+        }
+    }
 }
