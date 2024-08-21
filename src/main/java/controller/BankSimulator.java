@@ -6,6 +6,7 @@ import domain.Account;
 
 import domain.Member;
 import view.InputView;
+import view.dto.FindAccount;
 import view.dto.LoginRequest;
 
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static view.printView.printFailToLogin;
 import static view.printView.printAccount;
-
+import static view.printView.printAccountDetails;
 public class BankSimulator {
 
     MemberDAO memberDAO = new MemberDAO();
@@ -24,13 +25,19 @@ public class BankSimulator {
         Member member = login();
         List<Account> accountList = accountDAO.findAllByMemberId(member.getId());
         printAccount(accountList);
+        
+        FindAccount findAccount = inputAccount();
+        int findNumber = findAccount.getFindNumber();
+        
+        printAccountDetails(accountList,findNumber);
+        
         // int input = 1;
         // accountList.get(input-1);
 
 
     }
 
-    private Member login() throws SQLException {
+	private Member login() throws SQLException {
         while (true) {
             LoginRequest loginRequest = InputView.inputLogin();
             Member member = memberDAO.findByLoginIdAndPassword(loginRequest.getLoginId(), loginRequest.getPassword());
@@ -41,5 +48,17 @@ public class BankSimulator {
         }
         
     }
-    
+	
+	 private FindAccount inputAccount() {
+			// TODO Auto-generated method stub
+		 while (true) {
+			 FindAccount findAccount = InputView.inputAccount();
+			 int findNumber = findAccount.getFindNumber();
+			 
+			 if (findNumber > 0) {
+				 return findAccount;
+			 }
+			 System.out.println("잘못된 계좌 번호 입니다. 다시 시도해주세요.");
+		 }
+	 }    
 }

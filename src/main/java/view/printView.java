@@ -14,20 +14,38 @@ public class printView {
     	//여기다가 로그인이 성공했을 시에 본인 계좌를 쫙보여주는 코드를 여기다 작성하면 될거 같아요.
     	// select number,  total_money from Account where member_id = "입력받은 아이디에 해당하는 member_id"
     	System.out.println("==========================================================");
+    	System.out.println();
         for(int i = 0; i < accounts.size(); i++) {
             Account account = accounts.get(i);
-            System.out.println("("+(i+1)+") " + "계좌번호 = " + account.getNumber() 
+            System.out.println("| " + "("+(i+1)+") " + "계좌번호 = " + account.getNumber() 
             + " 계좌 타입 = " + account.getType() 
-            + " 잔액 = " + account.getTotal_money());
+            + " 잔액 = " + account.getTotal_money()
+            + " |");
+            if (i < accounts.size() - 1) {
+                System.out.println("--------------------------------------------------------------");
+            }
         }
+        System.out.println();
         System.out.println("==========================================================");
     }
     
     
     
-    public static void CheckAccount() {
+    public static void printAccountDetails(List<Account> accounts, int findNumber) {
     	// 해당하는 번호의 계좌번호의 대한 입출금 내역을 싹 보여주는 코드를 여기다가 작성을 해야할 것 같아요.
     	// select number, total_money from Account where number = " 입력받은 계좌 번호와 일치하는 number"
+    	
+    	if (findNumber <= 0 || findNumber > accounts.size()) {
+            System.out.println("잘못된 계좌 번호입니다. 다시 시도해주세요.");
+            return;
+    	}
+            System.out.println("==========================================================");
+            Account account = accounts.get(findNumber - 1);
+            System.out.println("| " + "계좌번호 = " + account.getNumber()
+                + " 계좌 타입 = " + account.getType()
+                + " 잔액 = " + account.getTotal_money()
+                + " |");
+            System.out.println("==========================================================");   
     }
     
     
