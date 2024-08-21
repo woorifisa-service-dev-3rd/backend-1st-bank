@@ -77,16 +77,22 @@ public class BankSimulator {
     }
 
     private Account selectMyAccount(int memberId) throws SQLException {
-        SelectBankRequest selectBankRequest = InputView.inputSelectBank(); // 은행선택
-        List<Account> accounts = accountDAO.findByMemberIdAndBankId(memberId, selectBankRequest.getBankId()); // 계좌 목록
-
         while (true) {
-            SelectAccountRequest selectAccountRequest = InputView.inputSelectAccount(accounts); // 내 계좌 선택
-            int myAccountIndex = selectAccountRequest.getAccountIndex();
-            if (myAccountIndex > 0 && myAccountIndex <= accounts.size()) {
-                return accounts.get(myAccountIndex - 1);
+            SelectBankRequest selectBankRequest = InputView.inputSelectBank(); // 은행선택
+            List<Account> accounts = accountDAO.findByMemberIdAndBankId(memberId, selectBankRequest.getBankId()); // 계좌 목록
+            if (accounts.size() == 0) {
+                printNotExistsBankAccount();
+                continue;
             }
-            printNotExistsNumber();
+
+            while (true) {
+                SelectAccountRequest selectAccountRequest = InputView.inputSelectAccount(accounts); // 내 계좌 선택
+                int myAccountIndex = selectAccountRequest.getAccountIndex();
+                if (myAccountIndex > 0 && myAccountIndex <= accounts.size()) {
+                    return accounts.get(myAccountIndex - 1);
+                }
+                printNotExistsNumber();
+            }
         }
     }
 

@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\3-05\Desktop\새 폴더\backend-1st-bank"/>
+			<item value="C:\Users\3-05\Desktop\새 폴더\backend-1st-bank\src"/>
 			<item value="C:\woori_workspace\13.jdbc\bank"/>
 			<item value="C:\woori_workspace\13.jdbc\bank\backend-1st-bank"/>
 		</list>

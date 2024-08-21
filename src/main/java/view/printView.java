@@ -29,7 +29,7 @@ public class printView {
 
     public static void printAccounts(List<Account> accounts) {
         for (int i = 0; i < accounts.size(); i++) {
-            System.out.println((i+1) + ". 계좌번호: " + accounts.get(i).getNumber());
+            System.out.println("[" + (i+1) + "]" + " 계좌번호: " + accounts.get(i).getNumber());
             System.out.println("잔액: " + accounts.get(i).getTotal_money());
             System.out.println("-----------------------------");
         }

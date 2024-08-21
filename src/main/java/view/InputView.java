@@ -38,7 +38,7 @@ public class InputView {
     // Method for selecting an account from a list
     public static SelectAccountRequest inputSelectAccount(List<Account> accounts) {
         System.out.println("############ 송금할 계좌 선택 ############");
-        System.out.println("송금할 계좌의 번호를 선택해주세요.");
+        System.out.println("송금할 계좌를 선택해주세요.");
         printView.printAccounts(accounts); // Assumes printView is correctly imported and used
         int accountIndex = Integer.parseInt(scanner.nextLine());
         return new SelectAccountRequest(accountIndex);
