@@ -14,7 +14,7 @@ public class TargetAccountDAO {
 		final String query = "select id, number, type, total_money from account "
 							+ "where number = ?";
 		
-		Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+		Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
 		
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, targetNumber);

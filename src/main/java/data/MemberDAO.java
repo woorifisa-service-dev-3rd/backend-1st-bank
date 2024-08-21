@@ -15,7 +15,7 @@ public class MemberDAO {
         final String query = "SELECT * FROM member WHERE login_id = ? AND password = ?";
 
         // Use try-with-resources to ensure all resources are closed properly
-        try (Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+        try (Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             pstmt.setString(1, loginId);

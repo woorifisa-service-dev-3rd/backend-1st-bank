@@ -10,7 +10,6 @@ public class Bank {
 
 	@Builder
 	public Bank(int id, String name) {
-		super();
 		this.id = id;
 		this.name = name;
 	}
