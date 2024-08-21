@@ -17,7 +17,7 @@ public class AccountDAO {
 		final String query = "SELECT * FROM Account WHERE member_id = ?";
 
 		List<Account> accountList = new ArrayList<>();
-		try (Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+		try (Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
 			 PreparedStatement pstmt = connection.prepareStatement(query)) {
 
 			pstmt.setInt(1, memberId);
@@ -41,7 +41,7 @@ public class AccountDAO {
 				+ "WHERE b.id = ? AND a.member_id = ?";
 
 		List<Account> accounts = new ArrayList<>();
-		try (Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+		try (Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
 			 PreparedStatement pstmt = connection.prepareStatement(query)) {
 
 			pstmt.setInt(1, bankId);
@@ -63,7 +63,7 @@ public class AccountDAO {
 	public void updateMyAccountSetMoney(int accountId, int totalMoney, int money) throws SQLException {
 		final String query = "UPDATE account SET total_money = ? WHERE id = ?";
 
-		try (Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+		try (Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
 			 PreparedStatement pstmt = connection.prepareStatement(query)) {
 
 			pstmt.setInt(1, totalMoney - money);
@@ -76,7 +76,7 @@ public class AccountDAO {
 	public void updateTargetAccountSetMoney(int targetAccountId, int totalMoney, int money) throws SQLException {
 		final String query = "UPDATE account SET total_money = ? WHERE id = ?";
 
-		try (Connection connection = DBUtil.getConnection("src/resources/jdbc.properties");
+		try (Connection connection = DBUtil.getConnection("src/resource/jdbc.properties");
 			 PreparedStatement pstmt = connection.prepareStatement(query)) {
 
 			pstmt.setInt(1, totalMoney + money);
