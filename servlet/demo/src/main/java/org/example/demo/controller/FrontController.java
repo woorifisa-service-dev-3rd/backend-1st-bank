@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ public class FrontController extends HttpServlet {
     private Map<String, Controller> controllerMap = new HashMap<>();
 
     public FrontController() {
-//        controllerMap.put()
+    	controllerMap.put("/bankList", new ShowBankController());
+    	controllerMap.put("/bank", new SelectBankController());
+    	controllerMap.put("/accountList", new SelectAccountController());
+    	controllerMap.put("/account", new AccountListController());
     }
 
     @Override
@@ -31,7 +35,21 @@ public class FrontController extends HttpServlet {
         Controller controller = controllerMap.get(path);
 
         // 실제 개별 컨트롤러에게 요청을 처리하도록 호출
-        controller.process(request, response);
+        try {
+			controller.process(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 }
